@@ -6,9 +6,7 @@ const plugins = [
     new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        chunkFilename: '[name].chunk.css',
-        filename: `bundle-${version}.css`,
-        ignoreOrder: true,
+        
     }),
 ];
 const config = {
@@ -39,7 +37,7 @@ const config = {
 		{
 			test: /\.css$/i,
 			use: [
-				MiniCssExtractPlugin.loader,
+				
                     {
                         loader: 'css-loader',
                         options: {
@@ -60,7 +58,7 @@ const config = {
                     loader: 'css-loader', // translates CSS into CommonJS
                     options : {
 						modules : {
-							// localIdentName: '[local]--[hash:base64:7]'
+							 localIdentName: '[local]--[hash:base64:7]'
 						},
 						sourceMap : true
 						
@@ -95,13 +93,16 @@ const config = {
 			]
 		},
 		{
-			test: /\.(png|jpe?g|gif)$/i,
+			test: /\.(eot|ttf|png|jpg|jpeg|gif|svg|woff|woff2)$/,
 			use: [
 				{
-					loader: "file-loader?name=/public/img/[name].[ext]",
+					loader: 'file-loader',
+					options: {
+						name: 'images/[name].[ext]',
+					},
 				},
 			],
-		  }, 
+		},
     ]
   },
   
@@ -111,7 +112,8 @@ const config = {
 	plugins: [...plugins,
 		new HtmlWebPackPlugin({
 			template: "./public/index.html",
-			filename: "./index.html"
+			filename: "./index.html",
+			minify: false
 		})
 	]
 }
